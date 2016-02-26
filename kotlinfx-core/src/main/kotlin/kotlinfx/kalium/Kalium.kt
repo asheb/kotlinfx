@@ -17,8 +17,9 @@ public class V<T>(private var value: T) {
     val callbacks: MutableList<() -> Unit> = arrayListOf()
 
     operator fun invoke(): T {
-        if (enclosing != null &&
-                (isConstruction || !listenerMap.containsKeyRaw(enclosing) || !listenerMap.getRaw(enclosing)!!.contains(this))) {
+        val encl = enclosing
+        if (encl != null &&
+                (isConstruction || !listenerMap.containsKey(encl) || !listenerMap.get(encl)!!.contains(this))) {
             val e = enclosing!!
             listenerMap.getOrPut(e) { hashSetOf() }.add(this)
             callbacks.add { calcMap[e]!!() }
@@ -44,8 +45,9 @@ public class K<T>(private val calc: () -> T) {
     val callbacks: MutableList<() -> Unit> = arrayListOf()
 
     operator fun invoke(): T {
-        if (enclosing != null &&
-                (isConstruction || !listenerMap.containsKeyRaw(enclosing) || !listenerMap.getRaw(enclosing)!!.contains(this))) {
+        val encl = enclosing
+        if (encl != null &&
+                (isConstruction || !listenerMap.containsKey(encl) || !listenerMap.get(encl)!!.contains(this))) {
             val e = enclosing!!
             listenerMap.getOrPut(e) { hashSetOf() }.add(this)
             callbacks.add { calcMap[e]!!() }
@@ -57,8 +59,9 @@ public class K<T>(private val calc: () -> T) {
 
 fun <T> template(name: String, f: (() -> T)?, thiz: Any, property: ObservableValue<T>): T {
     if (f == null) {
-        if (enclosing != null &&
-                (isConstruction || !listenerMap.containsKeyRaw(enclosing) || !listenerMap.getRaw(enclosing)!!.contains(thiz))) {
+        val encl = enclosing
+        if (encl != null &&
+                (isConstruction || !listenerMap.containsKey(encl) || !listenerMap.get(encl)!!.contains(thiz))) {
             val e = enclosing!!
             listenerMap.getOrPut(e) { hashSetOf() }.add(thiz)
             property.addListener { v: Any?, o: Any?, n: Any? -> calcMap[e]!!() }

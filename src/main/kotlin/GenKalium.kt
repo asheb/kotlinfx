@@ -44,9 +44,9 @@ fun main(args: Array<String>) {
             }
 
             val valTyKt = kotlinfyType(valTy)
-            val tyParamList = clazz.typeParameters.toArrayList()
-            val tyParams = util.genTypeParamsString(tyParamList)
-            val tyParamsFirst = util.genFirstTypeParamsString(tyParamList)
+            val tyParamArray = clazz.typeParameters
+            val tyParams = util.genTypeParamsString(tyParamArray)
+            val tyParamsFirst = util.genFirstTypeParamsString(tyParamArray)
             val template =
 """
 @Suppress("USELESS_CAST_STATIC_ASSERT_IS_FINE", "UNCHECKED_CAST")

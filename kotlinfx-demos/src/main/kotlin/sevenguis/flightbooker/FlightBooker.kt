@@ -27,14 +27,14 @@ class FlightBooker : Application() {
         val book = Button("Book")
         book.isDisable = true
 
-        returnDate.disablep bind flightType.valuep.isEqualTo("one-way flight")
+        returnDate.disablep.bind( flightType.valuep.isEqualTo("one-way flight") )
         // TODO: How to use closure instead of Callable?
         /*startDate.stylep bind Bindings.createStringBinding(object : Callable<String>{ override fun call(): String? =
                 if (startDate.text.isDate) "" else "-fx-background-color: lightcoral"
         }, startDate.textp)*/
-        startDate.stylep bind Bindings.createStringBinding({
+        startDate.stylep.bind( Bindings.createStringBinding({
             if (startDate.text.isDate) "" else "-fx-background-color: lightcoral"
-        }, arrayOf(startDate.textp))
+        }, arrayOf(startDate.textp)) )
 
         // For comparison, callback alternative
         returnDate.textp.addListener { v, o, n ->
@@ -50,14 +50,14 @@ class FlightBooker : Application() {
                                 startDate.text.asDate.compareTo(returnDate.text.asDate) > 0
                     }
         }, flightType.valuep, startDate.textp, returnDate.textp)*/
-        book.disablep bind Bindings.createBooleanBinding({
+        book.disablep.bind( Bindings.createBooleanBinding({
             if (flightType.value == "one-way flight") {
                 !startDate.text.isDate
             } else {
                 !startDate.text.isDate || !returnDate.text.isDate ||
                         startDate.text.asDate.compareTo(returnDate.text.asDate) > 0
             }
-        }, arrayOf<Observable>(flightType.valuep, startDate.textp, returnDate.textp))
+        }, arrayOf<Observable>(flightType.valuep, startDate.textp, returnDate.textp)) )
 
         Stage(stage, title = "Flight Booker") {
             scene = Scene {

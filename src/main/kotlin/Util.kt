@@ -29,7 +29,7 @@ public fun allJavaFXClasses(): Set<Class<out Object>> {
     return reflections.getSubTypesOf(Object::class.java)!!
 }
 
-public fun genFirstTypeParamsString(typeParams: List<TypeVariable<out Class<out Any>?>?>): String =
+public fun genFirstTypeParamsString(typeParams: Array<out TypeVariable<out Class<out Any>?>?>): String =
         if (typeParams.isEmpty()) "" else
         // The complexity is due to having to consider bounds on generic parameters
             "<${(typeParams.map {
@@ -38,8 +38,8 @@ public fun genFirstTypeParamsString(typeParams: List<TypeVariable<out Class<out 
                 "$it$bounds"
             }).joinToString(", ")}>"
 
-public fun genTypeParamsString(typeParams: List<TypeVariable<out Class<out Any>?>?>): String =
-        if (typeParams.isEmpty()) "" else "<${typeParams.join(", ")}>"
+public fun genTypeParamsString(typeParams: Array<out TypeVariable<out Class<out Any>?>?>): String =
+        if (typeParams.isEmpty()) "" else "<${typeParams.joinToString(", ")}>"
 
 public fun kotlinfyTypeBound(ty: String): String {
     val t = genproperties.kotlinfyType(ty)
@@ -148,7 +148,7 @@ fun <T> forit(col: Iterable<T>, f: (Iterator<T>) -> Unit) {
 }
 
 fun isArray(ty: String?): Boolean {
-    return arrayOf("ByteArray", "CharArray", "ShortArray", "IntArray", "LongArray", "FloatArray", "DoubleArray", "BooleanArray").containsRaw<String?>(ty)
+    return arrayOf("ByteArray", "CharArray", "ShortArray", "IntArray", "LongArray", "FloatArray", "DoubleArray", "BooleanArray").contains(ty)
 }
 
 /*

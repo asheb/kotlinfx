@@ -43,9 +43,9 @@ fun main(args: Array<String>) {
             val shortName = dekeyword(name.substring(0..name.length - 9)) + "p"
 
             val ty = kotlinfyType(method.genericReturnType!!.typeName!!)
-            val tyParamList = clazz.typeParameters.toArrayList()
-            val tyParams = util.genTypeParamsString(tyParamList)
-            val tyParamsFirst = util.genFirstTypeParamsString(tyParamList)
+            val tyParamArray = clazz.typeParameters
+            val tyParams = util.genTypeParamsString(tyParamArray)
+            val tyParamsFirst = util.genFirstTypeParamsString(tyParamArray)
             val template =
                     """
 @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")

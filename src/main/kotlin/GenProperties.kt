@@ -9,7 +9,7 @@ import java.lang.reflect.Modifier
 import java.nio.file.Paths
 
 fun main(args: Array<String>) {
-    fun allJavaFXClasses() = emptyList<Class<*>>() // Kotlin M14开始不再需要
+    fun allJavaFXClasses() = emptyList<Class<*>>() // Kotlin M14锟斤拷始锟斤拷锟斤拷锟斤拷要
 
     val propPath = Paths.get(projectRoot, "kotlinfx-core", "src", "main", "kotlin", "kotlinfx", "properties", "Generated.kt")!!
     val fw = FileWriter(propPath.toFile())
@@ -73,9 +73,9 @@ fun main(args: Array<String>) {
             var ty: String? = kotlinfyType(getter.genericReturnType!!.typeName!!)
             if (b) ty = getPropertyValueType(ty!!)
             val isArray = util.isArray(ty)
-            val tyParamList = clazz.typeParameters.toArrayList()
-            val tyParams = util.genTypeParamsString(tyParamList)
-            val tyParamsFirst = util.genFirstTypeParamsString(tyParamList)
+            val tyParamArray = clazz.typeParameters
+            val tyParams = util.genTypeParamsString(tyParamArray)
+            val tyParamsFirst = util.genFirstTypeParamsString(tyParamArray)
             val template =
                     """
 @Suppress("UNNECESSARY_NOT_NULL_ASSERTION")
